@@ -27,6 +27,7 @@ class _ViewCompeletedItemScreenState extends State<ViewCompeletedItemScreen> {
     try {
       Response response = await Dio().delete(
           "https://flutterapitest-562c0-default-rtdb.asia-southeast1.firebasedatabase.app//bucketlist/${widget.index}.json");
+      setState(() {});
 
       Navigator.pop(context, "refresh");
       print(response);
@@ -39,41 +40,6 @@ class _ViewCompeletedItemScreenState extends State<ViewCompeletedItemScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          PopupMenuButton(onSelected: (value) {
-            if (value == 1) {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text("Are you sure to delete?"),
-                      actions: [
-                        InkWell(
-                            borderRadius: BorderRadius.circular(10),
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text("Cancel")),
-                        InkWell(
-                          onTap: () async {
-                            deleteData();
-                          },
-                          child: const Text(
-                            "Confirm",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, color: Colors.red),
-                          ),
-                        ),
-                      ],
-                    );
-                  });
-            }
-          }, itemBuilder: (context) {
-            return [
-              const PopupMenuItem(value: 1, child: Text("Delete")),
-            ];
-          })
-        ],
         title: Text(widget.title),
       ),
       body: Column(
