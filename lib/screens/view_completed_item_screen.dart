@@ -3,12 +3,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-class ViewItemScreen extends StatefulWidget {
-  ViewItemScreen(
+class ViewCompeletedItemScreen extends StatefulWidget {
+  ViewCompeletedItemScreen(
       {super.key,
       required this.index,
-      required this.description,
       required this.title,
+      required this.description,
       required this.image});
   String title;
   String image;
@@ -16,10 +16,11 @@ class ViewItemScreen extends StatefulWidget {
   String description;
 
   @override
-  State<ViewItemScreen> createState() => _ViewItemScreenState();
+  State<ViewCompeletedItemScreen> createState() =>
+      _ViewCompeletedItemScreenState();
 }
 
-class _ViewItemScreenState extends State<ViewItemScreen> {
+class _ViewCompeletedItemScreenState extends State<ViewCompeletedItemScreen> {
   Future<void> deleteData() async {
     Navigator.pop(context);
 
@@ -31,21 +32,6 @@ class _ViewItemScreenState extends State<ViewItemScreen> {
       print(response);
     } catch (e) {
       print("Error");
-    }
-  }
-
-  Future<void> markAsComplete() async {
-    Map<String, dynamic> data = {"completed": true};
-
-    try {
-      Response response = await Dio().patch(
-          "https://flutterapitest-562c0-default-rtdb.asia-southeast1.firebasedatabase.app//bucketlist/${widget.index}.json",
-          data: data);
-
-      Navigator.pop(context, "refresh");
-      print(response);
-    } catch (e) {
-      print("cannot update");
     }
   }
 
@@ -82,13 +68,9 @@ class _ViewItemScreenState extends State<ViewItemScreen> {
                     );
                   });
             }
-            if (value == 2) {
-              markAsComplete();
-            }
           }, itemBuilder: (context) {
             return [
               const PopupMenuItem(value: 1, child: Text("Delete")),
-              const PopupMenuItem(value: 2, child: Text("Mark as complete")),
             ];
           })
         ],

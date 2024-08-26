@@ -1,10 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:validators/validators.dart';
 
 class AddBucketListScreen extends StatefulWidget {
   int newIndex;
-  AddBucketListScreen({super.key, required this.newIndex});
+  AddBucketListScreen({
+    super.key,
+    required this.newIndex,
+  });
 
   @override
   State<AddBucketListScreen> createState() => _AddBucketListScreenState();
@@ -15,13 +21,15 @@ class _AddBucketListScreenState extends State<AddBucketListScreen> {
   TextEditingController itemText = TextEditingController();
   TextEditingController costText = TextEditingController();
   TextEditingController imageURLText = TextEditingController();
+  TextEditingController descriptionText = TextEditingController();
 
   Future<void> addData() async {
     Map<String, dynamic> data = {
       "item": itemText.text,
       "cost": costText.text,
       "completed": false,
-      "image": imageURLText.text
+      "image": imageURLText.text,
+      "description": descriptionText.text
     };
 
     try {
@@ -30,9 +38,8 @@ class _AddBucketListScreenState extends State<AddBucketListScreen> {
           data: data);
 
       Navigator.pop(context, "refresh");
-      print(response);
     } catch (e) {
-      print("cannot update");
+      print(e);
     }
   }
 
@@ -90,6 +97,22 @@ class _AddBucketListScreenState extends State<AddBucketListScreen> {
                   },
                   controller: imageURLText,
                   decoration: const InputDecoration(labelText: "Image URL"),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "This must not be empty";
+                    }
+
+                    return null;
+                  },
+                  controller: descriptionText,
+                  decoration:
+                      const InputDecoration(labelText: "Some description"),
                 ),
                 const SizedBox(
                   height: 30,

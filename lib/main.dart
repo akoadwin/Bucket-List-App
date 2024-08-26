@@ -1,9 +1,10 @@
 import 'package:bucket_list/screens/main_screen.dart';
+import 'package:bucket_list/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -21,7 +22,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
           fontFamily: GoogleFonts.poppins().fontFamily,
           colorScheme: const ColorScheme.light()),
-      home: MainScreen(),
+      home: const HomeScreen(),
     );
   }
 }
