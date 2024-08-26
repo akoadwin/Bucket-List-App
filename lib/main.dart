@@ -1,4 +1,4 @@
-import 'package:bucket_list/mainScreen.dart';
+import 'package:bucket_list/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

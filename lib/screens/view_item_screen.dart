@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -23,9 +25,25 @@ class _ViewItemScreenState extends State<ViewItemScreen> {
       Response response = await Dio().delete(
           "https://flutterapitest-562c0-default-rtdb.asia-southeast1.firebasedatabase.app//bucketlist/${widget.index}.json");
 
-      Navigator.pop(context);
+      Navigator.pop(context, "refresh");
+      print(response);
     } catch (e) {
       print("Error");
+    }
+  }
+
+  Future<void> markAsComplete() async {
+    Map<String, dynamic> data = {"completed": true};
+
+    try {
+      Response response = await Dio().patch(
+          "https://flutterapitest-562c0-default-rtdb.asia-southeast1.firebasedatabase.app//bucketlist/${widget.index}.json",
+          data: data);
+
+      Navigator.pop(context, "refresh");
+      print(response);
+    } catch (e) {
+      print("cannot update");
     }
   }
 
@@ -61,6 +79,9 @@ class _ViewItemScreenState extends State<ViewItemScreen> {
                       ],
                     );
                   });
+            }
+            if (value == 2) {
+              markAsComplete();
             }
           }, itemBuilder: (context) {
             return [

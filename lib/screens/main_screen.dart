@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
-import 'package:bucket_list/add_bucketlist.dart';
-import 'package:bucket_list/view_item.dart';
+import 'package:bucket_list/screens/add_screen.dart';
+import 'package:bucket_list/screens/view_item_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -52,6 +52,9 @@ class _MainScreenState extends State<MainScreen> {
             height: 50,
           ),
           Text("An error has occured\n   while getting data."),
+          SizedBox(
+            height: 10,
+          ),
           ElevatedButton(
               onPressed: () async {
                 getData();
@@ -63,38 +66,47 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget listDataWidget() {
-    return ListView.builder(
-        itemCount: bucketListData.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: (bucketListData[index] is Map)
-                ? ListTile(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return ViewItemScreen(
-                          index: index,
-                          image: bucketListData[index]?["image"] ?? "",
-                          title: bucketListData[index]?["item"] ?? "",
-                        );
-                      })).then((value) {
-                        getData();
-                      });
-                    },
-                    trailing: Text(
-                      bucketListData[index]?["cost"].toString() ?? "",
-                    ),
-                    leading: CircleAvatar(
-                      radius: 25,
-                      backgroundImage:
-                          NetworkImage(bucketListData[index]?['image'] ?? ""),
-                    ),
-                    title: Text(bucketListData[index]?["item"] ?? ""),
-                  )
-                : SizedBox(),
-          );
-        });
+    List<dynamic> filteredList = bucketListData
+        .where((element) => !(element?["completed"] ?? false))
+        .toList();
+
+    return filteredList.isEmpty
+        ? Center(child: Text("No Data was found"))
+        : ListView.builder(
+            itemCount: bucketListData.length,
+            itemBuilder: (BuildContext context, int index) {
+              return (bucketListData[index] is Map &&
+                      (!(bucketListData[index]?["completed"] ?? false)))
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ViewItemScreen(
+                              index: index,
+                              image: bucketListData[index]?["image"] ?? "",
+                              title: bucketListData[index]?["item"] ?? "",
+                            );
+                          })).then((value) {
+                            if (value == "refresh") {
+                              getData();
+                            }
+                          });
+                        },
+                        trailing: Text(
+                          bucketListData[index]?["cost"].toString() ?? "",
+                        ),
+                        leading: CircleAvatar(
+                          radius: 25,
+                          backgroundImage: NetworkImage(
+                              bucketListData[index]?['image'] ?? ""),
+                        ),
+                        title: Text(bucketListData[index]?["item"] ?? ""),
+                      ),
+                    )
+                  : SizedBox();
+            });
   }
 
   @override
@@ -109,8 +121,14 @@ class _MainScreenState extends State<MainScreen> {
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return AddBucketListScreen();
-            }));
+              return AddBucketListScreen(
+                newIndex: bucketListData.length,
+              );
+            })).then((value) {
+              if (value == "refresh") {
+                getData();
+              }
+            });
           },
           shape: CircleBorder(),
           backgroundColor: (Colors.blueGrey.shade900),
@@ -142,9 +160,7 @@ class _MainScreenState extends State<MainScreen> {
                 )
               : isError
                   ? errorWidget()
-                  : bucketListData.isEmpty
-                      ? Center(child: Text("No data was found"))
-                      : listDataWidget()),
+                  : listDataWidget()),
     );
   }
 }
