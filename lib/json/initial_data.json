@@ -1,0 +1,30 @@
+[
+  {
+    "item": "Visit Singapore",
+    "cost": 200,
+    "completed": false,
+    "image": "https://pohcdn.com/guide/sites/default/files/styles/paragraph__live_banner__lb_image__1880bp/public/live_banner/Singapore-3.jpg",
+    "description": "Explore the vibrant city-state of Singapore, where cutting-edge architecture meets rich cultural heritage. Wander through the futuristic Gardens by the Bay, savor the flavors of diverse cuisines in hawker centers, and take in the breathtaking views from Marina Bay Sands. This trip promises a blend of modernity and tradition in one of Asia's most dynamic cities."
+  },
+  {
+    "item": "Visit Australia",
+    "cost": 240,
+    "completed": false,
+    "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/30/89/29/psx-20190223-020320-largejpg.jpg?w=500&h=-1&s=1",
+    "description": "Embark on an adventure to Australia, a land of stunning landscapes and diverse wildlife. Whether it's exploring the iconic Sydney Opera House, diving in the Great Barrier Reef, or discovering the natural wonders of the Outback, Australia offers an array of unforgettable experiences. It's a journey that combines the beauty of nature with vibrant urban life."
+  },
+  {
+    "item": "Get a big bike",
+    "cost": 100000,
+    "completed": false,
+    "image": "https://images.ctfassets.net/x7j9qwvpvr5s/2leRQaQTDEFzz8AQuhOEgQ/e3065c83f4d14dc381c8c2499f25cc0d/2024-06-06-Multistrada-V4-hero-short-1100x1000.jpg",
+    "description": "Fulfill your passion for the open road by getting a big bike. Experience the thrill of riding through scenic routes, feeling the wind in your hair, and the freedom that comes with every mile. This isn't just about transportation—it's about embracing a lifestyle of adventure and exploration."
+  },
+  {
+    "item": "Own a house and lot",
+    "cost": 250201,
+    "completed": false,
+    "image": "https://philrealtyglobal.com/wp-content/uploads/2017/02/ponderosa1-min-1.jpg",
+    "description": "Achieve the ultimate dream of homeownership by acquiring your very own house and lot. This is more than just a place to live; it's a space where you can create lasting memories, build a future, and enjoy the comfort of a home tailored to your tastes and needs. It's a significant milestone in life, symbolizing stability and success."
+  }
+]
